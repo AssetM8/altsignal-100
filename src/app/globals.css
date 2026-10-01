@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "@fontsource-variable/public-sans/index.css";
+
+/*
+ * AltSignal 100 design tokens.
+ * Navy/slate foundation, off-white text, five controlled accents.
+ * Positive/negative are never encoded by colour alone: values carry a sign and ▲/▼.
+ */
+@theme {
+  --color-ink: #0c1424;
+  --color-panel: #121d31;
+  --color-raised: #182740;
+  --color-line: #24365a;
+  --color-line-soft: #1c2b47;
+  --color-fg: #e7ebf2;
+  --color-muted: #94a2b8;
+  --color-faint: #6b7a93;
+  --color-pos: #45c08f;
+  --color-neg: #ef7066;
+  --color-amber: #e8ad45;
+  --color-cyan: #48bfe0;
+  --color-violet: #a592f0;
+
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum" 1, "cv11" 1;
+}
+
+/* Tabular numerals everywhere numbers line up in columns. */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+/* Ruled data grid, after the screenshot's header-row tables. */
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.grid-table th {
+  background: var(--color-raised);
+  color: var(--color-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--color-line);
+  white-space: nowrap;
+}
+.grid-table td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-line-soft);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+.grid-table tbody tr:hover td {
+  background: color-mix(in srgb, var(--color-raised) 60%, transparent);
+}
+.grid-table th.r,
+.grid-table td.r {
+  text-align: right;
+}
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-panel), var(--color-raised), var(--color-panel));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.recharts-cartesian-grid line {
+  stroke: var(--color-line-soft);
+}
+.recharts-text {
+  fill: var(--color-muted);
+  font-size: 11px;
+}
+.recharts-default-tooltip {
+  background: var(--color-raised) !important;
+  border: 1px solid var(--color-line) !important;
+  border-radius: 4px;
+  font-size: 12px;
+}
+.recharts-legend-wrapper {
+  font-size: 12px;
+}
+.recharts-legend-item-text {
+  color: var(--color-muted) !important;
+}
+
+/* Contain absolutely positioned screen-reader text inside horizontal scrollers,
+   so off-screen table cells cannot widen the page on small screens. */
+.overflow-x-auto {
+  position: relative;
+}

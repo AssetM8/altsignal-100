@@ -1,0 +1,15 @@
+# docker compose up --build   → http://localhost:3000 (demo mode, no credentials)
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - path: .env.local
+        required: false
+    environment:
+      DATABASE_URL: file:/data/altsignal.db
+    volumes:
+      - altsignal-data:/data
+volumes:
+  altsignal-data:
